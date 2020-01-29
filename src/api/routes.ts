@@ -1,7 +1,7 @@
 import controllers from './controllers'
 import { Application } from 'express'
 
-const routes = (app:Application):void => {
+const routes = (app: Application): void => {
     app.route('/dummy')
         .get(controllers.dummy)
 }

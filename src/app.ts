@@ -18,13 +18,13 @@ class App {
         this.routes()
     }
 
-    private middleware():void {
+    private middleware(): void {
         this.express.use(bodyParser.json())
         this.express.use(bodyParser.urlencoded({ extended: false}))
         this.express.use(morgan('combined', { stream }))
     }
 
-    private routes():void {
+    private routes(): void {
         routes(this.express)
     }
 
