@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import { fetchData, API } from '../service/apiCall';
 import axios from 'axios'
 

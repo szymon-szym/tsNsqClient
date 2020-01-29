@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import App from '../app'
 import request from 'supertest'
 
