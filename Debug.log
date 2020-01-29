@@ -113,3 +113,6 @@
 {"message":"Logginig initialized on debug level","level":"debug"}
 {"message":"creating app","level":"debug"}
 {"message":"::ffff:127.0.0.1 - - [29/Jan/2020:18:24:58 +0000] \"GET /dummy HTTP/1.1\" 200 53 \"-\" \"node-superagent/3.8.3\"\n","level":"info"}
+{"message":"Logginig initialized on debug level","level":"debug"}
+{"message":"creating app","level":"debug"}
+{"message":"::ffff:127.0.0.1 - - [29/Jan/2020:18:34:06 +0000] \"GET /dummy HTTP/1.1\" 200 53 \"-\" \"node-superagent/3.8.3\"\n","level":"info"}
