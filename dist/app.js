@@ -6,41 +6,33 @@ var __importStar = (this && this.__importStar) || function (mod) {
     result["default"] = mod;
     return result;
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 var sourceMaps = __importStar(require("source-map-support"));
-var bolt_1 = require("@slack/bolt");
 sourceMaps.install();
-var app = new bolt_1.App({
-    token: process.env.SLACK_BOT_TOKEN,
-    signingSecret: process.env.SLACK_SIGNING_SECRET,
-    logLevel: bolt_1.LogLevel.INFO
-});
-app.message('hello', function (_a) {
-    var message = _a.message, say = _a.say;
-    say({
-        text: "dummy response",
-        blocks: [{
-                "type": "section",
-                "text": {
-                    "type": "mrkdwn",
-                    "text": "Pick a date for me to remind you"
-                },
-                "accessory": {
-                    "type": "datepicker",
-                    "action_id": "datepicker_remind",
-                    "initial_date": "2019-04-28",
-                    "placeholder": {
-                        "type": "plain_text",
-                        "text": "Select a date"
-                    }
-                }
-            }]
-    });
-});
-app.action('button_click', function (_a) {
-    var body = _a.body, ack = _a.ack, say = _a.say;
-    ack();
-    say("<@" + body.user.id + "> clicked the button");
-});
-exports.default = app;
+var express_1 = __importDefault(require("express"));
+var bodyParser = __importStar(require("body-parser"));
+var morgan_1 = __importDefault(require("morgan"));
+var logger_1 = require("./utils/logger");
+var routes_1 = __importDefault(require("./api/routes"));
+logger_1.logger.debug('creating app');
+var App = (function () {
+    function App() {
+        this.express = express_1.default();
+        this.middleware();
+        this.routes();
+    }
+    App.prototype.middleware = function () {
+        this.express.use(bodyParser.json());
+        this.express.use(bodyParser.urlencoded({ extended: false }));
+        this.express.use(morgan_1.default('combined', { stream: logger_1.stream }));
+    };
+    App.prototype.routes = function () {
+        routes_1.default(this.express);
+    };
+    return App;
+}());
+exports.default = new App().express;
 //# sourceMappingURL=app.js.map
